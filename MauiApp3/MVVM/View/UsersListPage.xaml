@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="MauiApp3.MVVM.View.UsersListPage"
+             Title="UsersListPage"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            TextColor="#aca222"
+            FontSize="40" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+
+        <c1:FlexGrid x:Name="grid"
+                 BeginningEdit="OnBeginningEdit" 
+                 CellEditEnded="OnCellEditEnded"
+                 AutoGenerateColumns="False" 
+                 GridLinesVisibility="All"
+                 ColumnHeaderGridLinesVisibility="None"
+                 HeadersVisibility="Column"
+                 BackgroundColor="White"
+                 RowBackground="#FFE2EFDB"
+                 RowForeground="Black"
+                 AlternatingRowBackground="White"
+                 ColumnHeaderBackground="#FF70AD46"
+                 ColumnHeaderForeground="White"
+                 ColumnHeaderFontAttributes="Bold"
+                 SelectionBackground="#FF5A823F"
+                 SelectionForeground="White">
+            <c1:FlexGrid.Columns>
+                <c1:GridColumn Binding="UserName" MinWidth="70" Width="*"/>
+                <c1:GridColumn Binding="Password" MinWidth="70" Width="*"/>
+            </c1:FlexGrid.Columns>
+        </c1:FlexGrid>
+    </VerticalStackLayout>
+</ContentPage>
