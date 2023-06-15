@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp3.MVVM.View.MainPage"
              Title="MainPage"
-             BackgroundColor="Black"
+             BackgroundColor="#A6B9FF"
              Shell.NavBarIsVisible="False"
              Shell.TabBarIsVisible="False">
     
@@ -12,10 +12,11 @@
     </Shell.BackButtonBehavior>
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Welcome to main page"
             VerticalOptions="Center" 
-            TextColor="Red"
-            FontSize="40"
+            TextColor="#F3F6FF"
+            FontSize="50"
+            Margin="260,150,0,0"
             HorizontalOptions="Center" />
 
     </VerticalStackLayout>

@@ -34,12 +34,21 @@ namespace MauiApp3.Data
         public async Task UpdateUser(string newValue, string oldValue)
         {
             if (newValue == null) return;
-            await Init();
+            await Init();  
             var userForUpdate = await _dbConnection.Table<Users>().Where(o => oldValue == o.UserName).FirstOrDefaultAsync();
-            userForUpdate.UserName = newValue.ToString();
             await _dbConnection.UpdateAsync(userForUpdate);
-            Debug.WriteLine($"name - {userForUpdate.UserName}"); 
+            Debug.WriteLine($"name - {userForUpdate.UserName} \n pass = {userForUpdate.Password} ");
+        }
 
+        public async Task<bool> CheckUser(Users operatinUser)
+        {
+            //var userStatus = false;
+            //if(userForUpdate != null) userStatus = true;
+            //return userStatus;
+            
+            await Init();
+            var user = await _dbConnection.Table<Users>().Where(o => o.UserName == operatinUser.UserName).CountAsync();
+            return user > 0;
         }
         public async Task<bool> AddItemAsync(Users item)
         {

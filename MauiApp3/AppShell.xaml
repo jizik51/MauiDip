@@ -9,8 +9,8 @@
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False"/>
     </Shell.BackButtonBehavior>
-    
-    
+
+
     <ShellContent
         ContentTemplate="{DataTemplate local:LoadPage}"
         Route="LoadPage"
@@ -24,6 +24,11 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems"  >
         <ShellContent Route="MainPage" Title="Main" ContentTemplate="{DataTemplate local:MainPage}" />
         <ShellContent Route="UsersList" Title="Users List" ContentTemplate="{DataTemplate local:UsersListPage}" />
+        <ShellContent Title="Orders"/>
+        <ShellContent Title="Statistics"/>
+        <ShellContent Title="Service List"/>
+
+
     </FlyoutItem>
 
     <Shell.FlyoutFooter>

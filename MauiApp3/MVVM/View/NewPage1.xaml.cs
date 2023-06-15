@@ -13,10 +13,4 @@ public partial class NewPage1 : ContentPage
         _usersViewModel = viewModel;
     }
 
-    //protected async override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-    //    await _usersViewModel.GetAllUsers();
-    //}
-
 }

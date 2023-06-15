@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp3.MVVM.View.AddUserPage"
+             Title="AddUserPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#A6B9FF">
+    <Grid Margin="20, 20, 20, 0" >
+        <Grid.RowDefinitions RowDefinitions="Auto">
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Text="Add User" HorizontalOptions="Center" FontSize="Large" Grid.ColumnSpan="2"/>
+        
+        <Label  Text="User name" 
+                VerticalOptions="Center" 
+                Grid.Row="1"/>
+        <Entry Text="{Binding OperatingUsers.UserName}" 
+               BackgroundColor="White" 
+               Grid.Row="1" 
+               Grid.Column="1" 
+               HeightRequest="20"/>
+
+        <Label Text="User password" 
+               VerticalOptions="Center" 
+               Grid.Row="2"/>
+        <Entry Text="{Binding OperatingUsers.Password}" 
+               BackgroundColor="White" 
+               Grid.Row="2" 
+               Grid.Column="1" 
+               HeightRequest="20"/>
+        <!--<Label Text="User password" VerticalOptions="Center" Grid.Row="3"/>
+        <Entry Grid.Row="3" Grid.Column="1" HeightRequest="20"/>-->
+        <Label Margin="0,-40,0,0" Text="Set Role" VerticalOptions="Center" Grid.Row="3"/>
+        <Picker Grid.Row="3" Grid.Column="1" Margin="0,18"  x:Name="myPickerss" >
+            <Picker.Items>
+                <x:String>Admin</x:String>
+                <x:String>user</x:String>
+                <x:String>manager</x:String>
+            </Picker.Items>
+        </Picker>
+        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Text="Add user"
+                    Command="{Binding AddNewUserCommand}"
+                    WidthRequest="200"
+                    BackgroundColor="#F3F6FF" 
+                    HeightRequest="45" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Grid.ColumnSpan="2"/>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>

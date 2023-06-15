@@ -7,20 +7,22 @@ namespace MauiApp3.MVVM.View;
 public partial class UsersListPage : ContentPage
 {
     private readonly UsersViewModel _usersViewModel;
-    public UsersListPage(UsersViewModel viewModel)
+    private readonly FlexGrid _grid;
+
+    private object _originalValue;
+    private object _oldName;
+
+
+    public UsersListPage(UsersViewModel viewModel, AddUserViewModel addUserViewModel) 
     {
         InitializeComponent();
         BindingContext = viewModel;
         _usersViewModel = viewModel;
-        LoadDataAsync();
+        _grid = grid;
+        addUserViewModel.SetGrid(_grid);
+        _usersViewModel.LoadDataAsync(_grid);
+        grid.NewRowPlaceholder = "Click";
     }
-    private async void LoadDataAsync()
-    {
-        var data = await _usersViewModel.GetAllUsers();
-        grid.ItemsSource = data;
-    }
-    private object _originalValue;
-    private object _oldName;
 
     private void OnBeginningEdit(object sender, GridCellEditEventArgs e)
     {
@@ -31,26 +33,26 @@ public partial class UsersListPage : ContentPage
     {
         var originalValue = _originalValue;
         var currentValue = grid[e.CellRange.Row, e.CellRange.Column];
+        if (originalValue == null)
+        {
+            grid[e.CellRange.Row, e.CellRange.Column] = currentValue;
+            return;
+        }
         if (!e.CancelEdits && (originalValue == null && currentValue != null || !originalValue.Equals(currentValue)))
         {
-            DisplayAlert("Confirmation", "Do you want to commit the Edit?", "Apply", "Cancel").ContinueWith(t =>
+            DisplayAlert("Confirmation", "Do you want to commit the Edit?", "Apply", "Cancel").ContinueWith(async t =>
             {
                 if (t.Result)
                 {
                     grid[e.CellRange.Row, e.CellRange.Column] = currentValue; 
-                    UpdateUser(currentValue);
+                    await _usersViewModel.SetUppdateUsersData(currentValue, _oldName);
                 }
                 else
                 {
                     grid[e.CellRange.Row, e.CellRange.Column] = originalValue;
                 }
-            }, TaskScheduler.FromCurrentSynchronizationContext()); 
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
-
-    private async void UpdateUser(object newValue)
-    {
-        await _usersViewModel.SetUppdateUsersData(newValue, _oldName);
-
-    }
+ 
 }

@@ -4,13 +4,16 @@ using MauiApp3.Data;
 using MauiApp3.MVVM.Model;
 using MauiApp3.MVVM.View;
 using System.Collections.ObjectModel;
-
+using C1.Maui.Grid;
 
 namespace MauiApp3.MVVM.ViewModel
 {
     public partial class UsersViewModel : ObservableObject
     {
         private readonly DatabaseContext _context;
+        private readonly AddUserViewModel addUserViewModel;
+        private FlexGrid _grid;
+
 
         [ObservableProperty]
         private ObservableCollection<Users> _users = new();
@@ -26,7 +29,6 @@ namespace MauiApp3.MVVM.ViewModel
             get { return _isChecked; }
             set { SetProperty(ref _isChecked, value); }
         }
-        //public UsersViewModel()
         public UsersViewModel(DatabaseContext context)
         {
             _context = context;
@@ -34,19 +36,22 @@ namespace MauiApp3.MVVM.ViewModel
 
         //private void SetOperatingUsers(Users? users) => OperatingUsers = users ?? new();
 
-
+        public void SetGrid(FlexGrid grid)
+        {
+            _grid = grid;
+        }
         private bool IsValidData(Users users)
         {
             if (users.UserName == string.Empty || users.UserName == null || users.UserName.Contains(" "))
             {
-                App.Current.MainPage.DisplayAlert("Unsuccess", "Registration uncessful, incorrect name ", "OK");
+                App.Current.MainPage.DisplayAlert("Unsuccess", "Login uncessful, incorrect name ", "OK");
                 return false;
             }
 
             if (users.Password == string.Empty || users.Password == null || users.Password.Contains(" "))
             {
 
-                App.Current.MainPage.DisplayAlert("Unsuccess", "Registration uncessful, incorrect pass ", "OK");
+                App.Current.MainPage.DisplayAlert("Unsuccess", "Login uncessful, incorrect pass ", "OK");
                 return false;
             }
             return true;
@@ -62,11 +67,30 @@ namespace MauiApp3.MVVM.ViewModel
         private async Task CreateUser()
         {
             if (IsValidData(OperatingUsers) == false) return;
-
             await _context.AddItemAsync(OperatingUsers);
             Users.Add(OperatingUsers);
             await App.Current.MainPage.DisplayAlert("Success", "Registration cessful", "Ok");
+        }
 
+        public async void LoadDataAsync(FlexGrid grid) 
+        {
+            var data = await GetAllUsers();
+            grid.ItemsSource = data;
+           
+        }
+
+        public async Task SetUppdateUsersData(object newValue, object oldValue)
+        {
+            //OperatingUsers.UserName
+            //OperatingUsers.Password
+
+            await _context.UpdateUser(newValue.ToString(), oldValue.ToString());
+        }
+
+        [RelayCommand]
+        private async void LoadAddUserPage()
+        {
+            await Shell.Current.GoToAsync($"{nameof(AddUserPage)}");
         }
 
         [RelayCommand]
@@ -96,25 +120,6 @@ namespace MauiApp3.MVVM.ViewModel
             }
         }
 
-        //[RelayCommand]
-        //public async Task GetAllUsers()
-        //{
-        //    var users = await _context.GetAllUsers();
-        //    if (users is not null)
-        //    {
-        //        Users ??= new ObservableCollection<Users>();
-        //        foreach (var user in users)
-        //        {
-        //            Users.Add(user);
-
-        //        }
-        //    }
-        //}
-
-        public async Task SetUppdateUsersData(object newValue, object oldValue)
-        {
-            await _context.UpdateUser(newValue.ToString(), oldValue.ToString());
-        }
 
         public async Task<ObservableCollection<Users>> GetAllUsers()
         {

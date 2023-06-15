@@ -32,6 +32,13 @@ public static class MauiProgram
         builder.Services.AddSingleton<UsersViewModel>();
         builder.Services.AddSingleton<AppShellViewModel>();
         builder.Services.AddSingleton<UsersListPage>();
+        builder.Services.AddSingleton<AddUserPage>();
+        builder.Services.AddSingleton<AddUserViewModel>();
+        builder.Services.AddSingleton<RegUserPage>();
+        builder.Services.AddSingleton<MobileMainPage>();
+
+
+
 
 
         return builder.Build();
