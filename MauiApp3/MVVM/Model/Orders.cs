@@ -2,22 +2,20 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace MauiApp3.MVVM.Model
 {
-    
-    public class Users
+    public class Orders
     {
         [PrimaryKey, AutoIncrement, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
+        
         [Unique, SQLite.MaxLength(30)]
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Phone { get; set; }
-        public string Mail { get; set; }
-        public string Role { get; set; }
+        public string Service { get; set; }
+        public string UserData{ get; set; }
+        public string Date { get; set; }
+        public string PayMethod { get; set; }
+        public string OrderStatus { get; set; }
 
-
-        public Users Clone() => MemberwiseClone() as Users;
     }
 }

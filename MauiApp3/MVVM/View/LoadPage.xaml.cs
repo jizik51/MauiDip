@@ -19,7 +19,7 @@ public partial class LoadPage : ContentPage
         if (_viewModel.CheckUserLoginData()) 
             await Shell.Current.GoToAsync($"{nameof(MainPage)}");
         else 
-            await Shell.Current.GoToAsync($"{nameof(LoginPageViewModel)}");
+            await Shell.Current.GoToAsync($"{nameof(RegUserPage)}");
 
     }
 }

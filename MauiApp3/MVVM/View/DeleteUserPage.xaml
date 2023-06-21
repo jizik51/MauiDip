@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp3.MVVM.View.DeleteUserPage"
+             Title="DeleteUserPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#A6B9FF">
+    <Grid Margin="20, 20, 20, 0" >
+        <Grid.RowDefinitions RowDefinitions="Auto">
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Text="Delete User" HorizontalOptions="Center" FontSize="Large" Grid.ColumnSpan="2"/>
+
+        <Label  Text="Enter user name" 
+                VerticalOptions="Center" 
+                Grid.Row="1"
+                FontSize="15"/>
+        <Entry Text="{Binding OperatingUsers.UserName}" 
+               BackgroundColor="White" 
+               Grid.Row="1" 
+               Grid.Column="1" 
+               HeightRequest="40"/>
+
+        <Button Text="Delete user"
+                    Grid.Row="2"    
+                    Grid.ColumnSpan="2"    
+                    Command="{Binding DeleteUserCommand}"
+                    WidthRequest="200"
+                    BackgroundColor="#F3F6FF" 
+                    HeightRequest="45" 
+                    HorizontalOptions="CenterAndExpand" />
+
+    </Grid>
+</ContentPage>

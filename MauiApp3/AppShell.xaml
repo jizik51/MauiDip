@@ -17,14 +17,14 @@
         Shell.FlyoutItemIsVisible="False"/>
     <ShellContent
          Title="Login"
-         ContentTemplate="{DataTemplate local:LoginPageViewModel}"
-         Route="LoginPageViewModel"
+         ContentTemplate="{DataTemplate local:RegUserPage}"
+         Route="RegUserPage"
          Shell.FlyoutItemIsVisible="False"/>
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems"  >
         <ShellContent Route="MainPage" Title="Main" ContentTemplate="{DataTemplate local:MainPage}" />
         <ShellContent Route="UsersList" Title="Users List" ContentTemplate="{DataTemplate local:UsersListPage}" />
-        <ShellContent Title="Orders"/>
+        <ShellContent Title="Orders" ContentTemplate="{DataTemplate local:OrdersListPage}"/>
         <ShellContent Title="Statistics"/>
         <ShellContent Title="Service List"/>
 

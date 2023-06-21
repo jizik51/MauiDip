@@ -17,7 +17,7 @@ namespace MauiApp3.MVVM.ViewModel
             Preferences.Default.Set("UserName", String.Empty);
             Preferences.Default.Set("Password", String.Empty);
             Preferences.Default.Set("AutoLogin", false);
-            await Shell.Current.GoToAsync($"///{nameof(LoginPageViewModel)}");
+            await Shell.Current.GoToAsync($"///{nameof(RegUserPage)}");
         }
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp3.MVVM.View.AddUserPage"
-             Title="AddUserPage"
+             x:Class="MauiApp3.MVVM.View.AddOrderPage"
+             Title="AddOrderPage"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#A6B9FF">
@@ -16,63 +16,63 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Text="Add User" HorizontalOptions="Center" FontSize="Large" Grid.ColumnSpan="2"/>
-        
-        <Label  Text="User name" 
+        <Label Text="Add Order" HorizontalOptions="Center" FontSize="Large" Grid.ColumnSpan="2"/>
+
+        <Label  Text="Service" 
                 VerticalOptions="Center" 
                 Grid.Row="1"/>
-        <Entry Text="{Binding OperatingUsers.UserName}" 
+        <Entry Text="{Binding OperatingOrders.Service}" 
                BackgroundColor="White" 
                Grid.Row="1" 
                Grid.Column="1" 
                HeightRequest="20"/>
 
-        <Label Text="User password" 
+        <Label Text="User name" 
                VerticalOptions="Center" 
                Grid.Row="2"/>
-        <Entry Text="{Binding OperatingUsers.Password}" 
+        <Entry Text="{Binding OperatingOrders.UserData}" 
                BackgroundColor="White" 
                Grid.Row="2" 
                Grid.Column="1" 
                HeightRequest="20"/>
-        <Label Text="User phone" 
+        <Label Text="Date" 
                VerticalOptions="Center" 
                Grid.Row="3"/>
-        <Entry Text="{Binding OperatingUsers.Phone}" 
+        <Entry  Text="{Binding OperatingOrders.Date}"               
                BackgroundColor="White" 
                Grid.Row="3" 
                Grid.Column="1" 
                HeightRequest="20"/>
-        <Label Text="User mail" 
+
+        <Label Text="Pay Method" 
                VerticalOptions="Center" 
                Grid.Row="4"/>
-        <Entry Text="{Binding OperatingUsers.Mail}" 
-               BackgroundColor="White" 
-               Grid.Row="4" 
-               Grid.Column="1" 
-               HeightRequest="20"/>
-        <!--<Label Text="User password" VerticalOptions="Center" Grid.Row="3"/>
-        <Entry Grid.Row="3" Grid.Column="1" HeightRequest="20"/>-->
-        <Label Margin="0,-25,0,0" Text="Set Role" VerticalOptions="Center" Grid.Row="5"/>
-        <Picker Grid.Row="5" Grid.Column="1" x:Name="myPickerss" SelectedItem="{Binding SelectedRole}" >
+        <Picker Grid.Row="4" Grid.Column="1" x:Name="myPickersss" SelectedItem="{Binding SelectedPayMethod}" >
             <Picker.Items>
-                <x:String>Admin</x:String>
-                <x:String>user</x:String>
-                <x:String>manager</x:String>
+                <x:String>Card</x:String>
+                <x:String>Cash</x:String>
+            </Picker.Items>
+        </Picker>
+        <Label Margin="0,-25,0,0" Text="Order Status" VerticalOptions="Center" Grid.Row="5"/>
+        <Picker Grid.Row="5" Grid.Column="1" x:Name="myPickerssss" SelectedItem="{Binding SelectedStatus}" >
+            <Picker.Items>
+                <x:String>Delevered</x:String>
+                <x:String>Canceled</x:String>
+                <x:String>In the process</x:String>
             </Picker.Items>
         </Picker>
         <Grid Grid.Row="6" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Text="Add user"
-                    Command="{Binding AddNewUserCommand}"
+            <Button Text="Add order"
+                    Command="{Binding AddNewOrderCommand}"
                     WidthRequest="200"
                     BackgroundColor="#F3F6FF" 
                     HeightRequest="45" 

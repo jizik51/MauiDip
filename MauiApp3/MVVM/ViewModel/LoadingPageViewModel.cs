@@ -18,9 +18,13 @@ namespace MauiApp3.MVVM.ViewModel
         {
             var isAutoLog = Preferences.Default.Get("AutoLogin", false);
             return isAutoLog;
-
         }
-
+        
+        //public bool CheckRole()
+        //{
+        //    var isUser = Preferences.Default.Get("Role", false);
+        //    return isUser;
+        //}
 
     }
 }

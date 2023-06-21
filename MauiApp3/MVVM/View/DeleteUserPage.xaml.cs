@@ -1,13 +1,16 @@
-using MauiApp3.MVVM.ViewModel;
 using MauiApp3.Helpers;
 using MauiApp3.Data;
+using MauiApp3.MVVM.ViewModel;
+using MauiApp3.MVVM.View;
+
 namespace MauiApp3.MVVM.View;
 
-public partial class AddUserPage : ContentPage
+public partial class DeleteUserPage : ContentPage
 {
-	public AddUserPage(AddUserViewModel viewModel)
-	{
-		InitializeComponent();
+
+    public DeleteUserPage(DeleteUserViewModel viewModel)
+    {
+        InitializeComponent();
         BindingContext = viewModel;
         Appearing += DeleteUserPage_Appearing;
         Disappearing += DeleteUserPage_Disappearing;
@@ -28,4 +31,6 @@ public partial class AddUserPage : ContentPage
         var usersListPage = new UsersListPage(usersViewModel, addUserViewModel, deleteUserViewModel);
         WindowSizeHelper.ResetWindowSize(usersListPage);
     }
+
+
 }

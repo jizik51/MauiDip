@@ -11,17 +11,10 @@ public partial class App : Application
 
     public App()
     {
-        //var databaseContext = new DatabaseContext();
-        //var usersViewModel = new UsersViewModel(databaseContext);
-        //var mainPage = new MainPage(usersViewModel);
-        //var loginPage = new LoginPageViewModel(usersViewModel);
 
         MainPage = new AppShell();
-        //var isAutoLogin = Preferences.Default.Get("AutoLogin", false);
-        //if (isAutoLogin) MainPage = new NavigationPage(mainPage);
-        //else Application.Current.MainPage = loginPage;
-    }
 
+    }
 
     protected override Window CreateWindow(IActivationState activationState)
     {
@@ -29,13 +22,13 @@ public partial class App : Application
         window.Created += Window_Created;
         return window;
     }
-
     private async void Window_Created(object sender, EventArgs e)
     {
-        const int defaultWidth = 1200;
-        const int defaultHeight = 650;
-
         var window = (Window)sender;
+
+        const int defaultWidth = 1300;
+        const int defaultHeight = 750;
+
         window.Width = defaultWidth;
         window.Height = defaultHeight;
         window.X = -defaultWidth;

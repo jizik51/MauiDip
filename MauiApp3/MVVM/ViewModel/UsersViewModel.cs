@@ -11,12 +11,12 @@ namespace MauiApp3.MVVM.ViewModel
     public partial class UsersViewModel : ObservableObject
     {
         private readonly DatabaseContext _context;
-        private readonly AddUserViewModel addUserViewModel;
         private FlexGrid _grid;
 
 
         [ObservableProperty]
         private ObservableCollection<Users> _users = new();
+
 
         [ObservableProperty]
         private Users _operatingUsers = new();
@@ -72,19 +72,53 @@ namespace MauiApp3.MVVM.ViewModel
             await App.Current.MainPage.DisplayAlert("Success", "Registration cessful", "Ok");
         }
 
-        public async void LoadDataAsync(FlexGrid grid) 
+        public async void LoadDataAsync(FlexGrid grid)
         {
             var data = await GetAllUsers();
             grid.ItemsSource = data;
-           
         }
 
-        public async Task SetUppdateUsersData(object newValue, object oldValue)
+        //[RelayCommand]
+        //public async Task DeleteUser()
+        //{
+        //    var user = await _context.GetUsersIdAsync(OperatingUsers);
+        //    await _context.DeleteUsers(user);
+        //}
+        public async Task SetUppdateUsersData(string userName, string pass, string mail, string phone, string role, object oldUserName, UsersListPage usersListPage, int row, int column)
         {
-            //OperatingUsers.UserName
-            //OperatingUsers.Password
+            try
+            {
 
-            await _context.UpdateUser(newValue.ToString(), oldValue.ToString());
+                if (userName == null || string.IsNullOrWhiteSpace(userName.ToString()) ||
+                    pass == null || string.IsNullOrWhiteSpace(pass.ToString()) ||
+                    mail == null || string.IsNullOrWhiteSpace(mail.ToString()) ||
+                    phone == null || string.IsNullOrWhiteSpace(phone.ToString()) ||
+                    role == null || string.IsNullOrWhiteSpace(role.ToString()))
+                {
+                    throw new Exception("Invalid data. Please fill all fields.");
+                }
+                OperatingUsers.UserName = oldUserName.ToString();
+                var user = await _context.GetUsersIdAsync(OperatingUsers);
+                user.UserName = userName.ToString();
+                var isMoreThenOne = await _context.CheckUser(user);
+                if (isMoreThenOne && userName != oldUserName.ToString())
+                {
+                    usersListPage._grid[row, column] = oldUserName;
+                    await App.Current.MainPage.DisplayAlert("Error", "User name take", "Ok");
+                    return;
+                }
+                user.Password = pass.ToString();
+                user.Phone = phone.ToString();
+                user.Mail = mail.ToString();
+                user.Role = role.ToString();
+                await _context.UpdateUser(user);
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Fill all row", "Ok");
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
         }
 
         [RelayCommand]
@@ -94,15 +128,36 @@ namespace MauiApp3.MVVM.ViewModel
         }
 
         [RelayCommand]
+        private async void LoadDeleteUserPage()
+        {
+            //await MainThread.InvokeOnMainThreadAsync(async () =>
+            //{
+            //    await Shell.Current.GoToAsync($"{nameof(DeleteUserPage)}");
+            //}).ConfigureAwait(false);
+            await Shell.Current.GoToAsync($"{nameof(DeleteUserPage)}");
+        }
+
+        [RelayCommand]
         private async Task LogginUser()
         {
             if (IsValidData(OperatingUsers) == false) return;
             var res = await _context.GetUsersIdAsync(OperatingUsers);
+            if(res.Role == "users")
+            {
+                Preferences.Set("id", res.Id);
+                Preferences.Set("UserName", res.UserName);
+                Preferences.Set("Password", res.Password);
+                Preferences.Set("Role", res.Role);
+                Preferences.Set("AutoLogin", true);
+                await Shell.Current.GoToAsync($"{nameof(MobileMainPage)}");
+                return;
+            }
             if (_isChecked)
             {
                 Preferences.Set("id", res.Id);
                 Preferences.Set("UserName", res.UserName);
                 Preferences.Set("Password", res.Password);
+                Preferences.Set("Role", res.Role);
                 Preferences.Set("AutoLogin", true);
                 await Shell.Current.GoToAsync($"{nameof(MainPage)}");
                 //await Navigate();
